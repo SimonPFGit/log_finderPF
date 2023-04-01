@@ -1,0 +1,25 @@
+import os
+import shutil
+
+# Specify the directory you want to search in
+directory = os.path.join(os.environ['USERPROFILE'], "AppData", "Local", "TerraIncognita", "Saved", "Logs")
+
+# Specify the file name you're looking for
+file_name = "TerraIncognita.log"
+
+# Specify the directory you want to copy the file to
+destination_dir = os.path.join(os.environ['USERPROFILE'], "OneDrive", "Desktop", "TerraIncognitaLogs")
+
+# Create the destination directory if it doesn't exist
+if not os.path.exists(destination_dir):
+    os.makedirs(destination_dir)
+
+# Search for the file in the directory
+for root, dirs, files in os.walk(directory):
+    if file_name in files:
+        # The file was found, copy it to the destination directory
+        shutil.copy(os.path.join(root, file_name), destination_dir)
+        print(f"File {file_name} was copied to {destination_dir}!")
+        break
+else:
+    print(f"File {file_name} was not found in the directory.")
